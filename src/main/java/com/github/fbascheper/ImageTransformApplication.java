@@ -24,7 +24,7 @@ public class ImageTransformApplication {
      * </ul>
      *
      * @param args arguments
-     * @throws IOException
+     * @throws IOException if the files cannot be read
      */
     public static void main(final String[] args) throws IOException {
         if (args.length != 2) {
