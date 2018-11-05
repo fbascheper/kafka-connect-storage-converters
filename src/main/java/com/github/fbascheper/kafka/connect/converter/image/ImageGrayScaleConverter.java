@@ -86,7 +86,7 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
             convertedImg.getGraphics().drawImage(source, 0, 0, Color.BLACK, null);
             convertedImg.getGraphics().dispose();
 
-            BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(convertedImg);
+            BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH.transform(convertedImg);
             BufferedImage grayscale = GrayScaleTransformer.INSTANCE.transform(resized);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(grayscale, "jpg", bos);

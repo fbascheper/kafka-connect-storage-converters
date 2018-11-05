@@ -47,7 +47,7 @@ public class ImageTransformApplication {
         convertedImg.getGraphics().drawImage(source, 0, 0, Color.BLACK, null);
         convertedImg.getGraphics().dispose();
 
-        BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(convertedImg);
+        BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH.transform(convertedImg);
         BufferedImage grayscale = GrayScaleTransformer.INSTANCE.transform(resized);
 
         ImageIO.write(grayscale, "jpg", new File(destFileName));

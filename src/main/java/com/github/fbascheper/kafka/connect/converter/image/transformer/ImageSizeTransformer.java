@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class ImageSizeTransformer implements ImageTransformer {
 
-    public static final ImageSizeTransformer RESIZE_WIDTH_320 = new ImageSizeTransformer(320);
+    public static final ImageSizeTransformer RESIZE_WIDTH = new ImageSizeTransformer(1024);
 
     private final int targetWidth;
     private final Integer targetHeight;
