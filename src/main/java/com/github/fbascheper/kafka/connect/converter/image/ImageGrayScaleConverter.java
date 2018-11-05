@@ -11,6 +11,7 @@ import org.apache.kafka.connect.storage.ConverterConfig;
 import org.apache.kafka.connect.storage.HeaderConverter;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -75,7 +76,12 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
     private byte[] convert(byte[] data) {
         try {
             BufferedImage source = ImageIO.read(new ByteArrayInputStream(data));
-            BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(source);
+
+            BufferedImage convertedImg = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+            convertedImg.getGraphics().drawImage(source, 0, 0, Color.BLACK, null);
+            convertedImg.getGraphics().dispose();
+
+            BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(convertedImg);
             BufferedImage grayscale = GrayScaleTransformer.INSTANCE.transform(resized);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(grayscale, "jpg", bos);

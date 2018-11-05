@@ -4,6 +4,7 @@ import com.github.fbascheper.kafka.connect.converter.image.transformer.util.Test
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.Objects;
@@ -34,11 +35,21 @@ public abstract class AbstractTransformerTest {
         transform(TestImage.COLOR_IMAGE);
     }
 
+    @Test
+    public void transformPngMask() throws Exception {
+        transform(TestImage.MASK_DEVIL_IMAGE);
+    }
+
     private void transform(TestImage testImage) throws Exception {
         InputStream inputStream = testImage.toInputStream();
         Objects.requireNonNull(inputStream);
         BufferedImage image = ImageIO.read(inputStream);
-        BufferedImage result = transformer.transform(image);
+
+        BufferedImage convertedImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+        convertedImg.getGraphics().drawImage(image, 0, 0, Color.BLACK, null);
+        convertedImg.getGraphics().dispose();
+
+        BufferedImage result = transformer.transform(convertedImg);
 
         ImageIO.write(result, "jpg", testImage.toTempOutputFile(prefix));
 

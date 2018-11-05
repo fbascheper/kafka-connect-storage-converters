@@ -22,7 +22,12 @@ public enum TestImage {
     /**
      * Color image
      */
-    COLOR_IMAGE("images/MDAlarm_20180313-082002.jpg");
+    COLOR_IMAGE("images/MDAlarm_20180313-082002.jpg"),
+
+    /**
+     * Mask devil image
+     */
+    MASK_DEVIL_IMAGE("images/devil.png");
 
     private final String location;
 

@@ -4,6 +4,7 @@ import com.github.fbascheper.kafka.connect.converter.image.transformer.GrayScale
 import com.github.fbascheper.kafka.connect.converter.image.transformer.ImageSizeTransformer;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,12 @@ public class ImageTransformApplication {
         }
 
         BufferedImage source = ImageIO.read(input);
-        BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(source);
+
+        BufferedImage convertedImg = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+        convertedImg.getGraphics().drawImage(source, 0, 0, Color.BLACK, null);
+        convertedImg.getGraphics().dispose();
+
+        BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH_320.transform(convertedImg);
         BufferedImage grayscale = GrayScaleTransformer.INSTANCE.transform(resized);
 
         ImageIO.write(grayscale, "jpg", new File(destFileName));
