@@ -9,6 +9,7 @@ import org.apache.kafka.connect.errors.DataException;
 import org.apache.kafka.connect.storage.Converter;
 import org.apache.kafka.connect.storage.ConverterConfig;
 import org.apache.kafka.connect.storage.HeaderConverter;
+import org.slf4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +17,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * Grayscale and resizing converter for images using raw byte data.
@@ -28,6 +31,8 @@ import java.util.Map;
 public class ImageGrayScaleConverter implements Converter, HeaderConverter {
 
     private static final ConfigDef CONFIG_DEF = ConverterConfig.newConfigDef();
+
+    private static final Logger LOGGER = getLogger(ImageGrayScaleConverter.class);
 
     @Override
     public ConfigDef config() {
@@ -89,7 +94,8 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
             return bos.toByteArray();
 
         } catch (Exception ex) {
-            throw new DataException("Image conversion failure", ex);
+            LOGGER.error("Image conversion failure", ex);
+            return data;
         }
 
     }
