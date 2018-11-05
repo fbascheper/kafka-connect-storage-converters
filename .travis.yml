@@ -1,0 +1,39 @@
+## see https://www.phillip-kruger.com/post/continuous_integration_to_maven_central/
+language: java
+
+jdk:
+- oraclejdk8
+
+## export GPG details
+before_install:
+- echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+- echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+
+install:
+  mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+
+## Build and release to maven central
+script:
+  mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+
+## Get the project version
+before_deploy:
+- mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
+
+## Create release in GitHub
+deploy:
+  provider: releases
+  api_key:
+    secure: bhODidqBEE/Nlp1UXKa97lspyy3MesMmkMgNGNwoTH7dWXJ5OaPXM5Tu3Di9muy27Z95tc6ntBLa5vKHz9+nL3XiRJhHHPZ2nRX1ItCOkAik8Bh0j8sVXYVPf8EdfYxzHOan1ZhPzX/ACDRxr1yYOjiB3Ar3uduhqKDGq8pgLC/mY0cpRSUrSGB5LNfxMndY8YZ7eCZn7v3zpZgV2IDPzIPR/EABDDkHwdZiT8Yj84FfHyq2k5GTPZHqOuY6dVj1qctiE3k+i/pRd0M5WF+Lbt7OFfMrZIpjMoCB1kzfrOnHYrTNalCZ40tr18ompos7nZgtmz2BRuvwNTLYtwCgs8ApVdImECG+vTL48h3Sqdn+f/eSfKLohawqUF/Z7dxQ5CrnFxlmuPIJDBn/hd9/9O7x0d5UrfEXLGvGIvJKWBFuKzKumBrrOGxJ/Gjk+bsVOwX4PCaIg3OCPoNlG3WgF1R3uNld0UFud5izZe5LCsUKjbk/ccOMxxZsYb++Xy3JNlGDn/iKhV+ujsLoGZR4l6eiZBbxF2lEpySRud4k3BsRAs0HcEQh4NFoe146JC4jFbl2kdjpTxA8L1C+o2QvdDSnlgCw94ntlWiCCBkul4nFf32kpnoN/qCE21xbpDsT37E2EQdmizuUP7jYqo+xxwLTW7LdTCly6yOId+jLS20=
+  file:
+  - ./target/kafka-connect-storage-converters-$project_version.jar
+  skip_cleanup: true
+  on:
+    repo: fbascheper/kafka-connect-storage-converters
+    branch: develop
+  name: $project_version
+
+cache:
+  directories:
+  - ~/.m2/repository
