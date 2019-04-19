@@ -1,4 +1,4 @@
-package com.github.fbascheper.kafka.connect.converter.image.transformer;
+package com.github.fbascheper.image.transformer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

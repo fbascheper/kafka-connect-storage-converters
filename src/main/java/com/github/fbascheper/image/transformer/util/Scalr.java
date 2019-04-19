@@ -1,4 +1,4 @@
-package com.github.fbascheper.kafka.connect.converter.image.transformer.util;
+package com.github.fbascheper.image.transformer.util;
 
 
 import javax.imageio.ImageIO;

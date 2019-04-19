@@ -1,6 +1,7 @@
-package com.github.fbascheper.kafka.connect.converter.image.transformer;
+package com.github.fbascheper.image.transformer;
 
-import com.github.fbascheper.kafka.connect.converter.image.transformer.util.TestImage;
+import com.github.fbascheper.image.transformer.ImageTransformer;
+import com.github.fbascheper.image.transformer.util.TestImage;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;

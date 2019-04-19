@@ -1,6 +1,6 @@
-package com.github.fbascheper.kafka.connect.converter.image.transformer;
+package com.github.fbascheper.image.transformer;
 
-import com.github.fbascheper.kafka.connect.converter.image.transformer.util.Scalr;
+import com.github.fbascheper.image.transformer.util.Scalr;
 
 import java.awt.image.BufferedImage;
 
@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class ImageSizeTransformer implements ImageTransformer {
 
-    public static final ImageSizeTransformer RESIZE_WIDTH = new ImageSizeTransformer(1024);
+    public static final ImageSizeTransformer DEFAULT = new ImageSizeTransformer(1024);
 
     private final int targetWidth;
     private final Integer targetHeight;

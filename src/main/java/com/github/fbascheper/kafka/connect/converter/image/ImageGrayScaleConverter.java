@@ -1,7 +1,7 @@
 package com.github.fbascheper.kafka.connect.converter.image;
 
-import com.github.fbascheper.kafka.connect.converter.image.transformer.GrayScaleTransformer;
-import com.github.fbascheper.kafka.connect.converter.image.transformer.ImageSizeTransformer;
+import com.github.fbascheper.image.transformer.CombinedImageTransformer;
+import com.github.fbascheper.image.transformer.ImageTransformer;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
@@ -12,7 +12,6 @@ import org.apache.kafka.connect.storage.HeaderConverter;
 import org.slf4j.Logger;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +32,8 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
     private static final ConfigDef CONFIG_DEF = ConverterConfig.newConfigDef();
 
     private static final Logger LOGGER = getLogger(ImageGrayScaleConverter.class);
+
+    private ImageTransformer imageTransformer = new CombinedImageTransformer();
 
     @Override
     public ConfigDef config() {
@@ -81,15 +82,10 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
     private byte[] convert(byte[] data) {
         try {
             BufferedImage source = ImageIO.read(new ByteArrayInputStream(data));
+            BufferedImage transformedImage = imageTransformer.transform(source);
 
-            BufferedImage convertedImg = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-            convertedImg.getGraphics().drawImage(source, 0, 0, Color.BLACK, null);
-            convertedImg.getGraphics().dispose();
-
-            BufferedImage resized = ImageSizeTransformer.RESIZE_WIDTH.transform(convertedImg);
-            BufferedImage grayscale = GrayScaleTransformer.INSTANCE.transform(resized);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(grayscale, "jpg", bos);
+            ImageIO.write(transformedImage, "jpg", bos);
 
             return bos.toByteArray();
 
@@ -99,4 +95,5 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
         }
 
     }
+
 }

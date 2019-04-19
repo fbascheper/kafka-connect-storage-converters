@@ -117,7 +117,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.fbascheper.ImageTransformApplication</mainClass>
+                            <mainClass>com.github.fbascheper.image.transformer.ImageTransformApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
