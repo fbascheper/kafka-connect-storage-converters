@@ -235,7 +235,7 @@ public class Scalr {
      * JDK that imgscalr is meant to replace).
      * <p>
      * This ConvolveOp uses a 3x3 kernel with the values:
-     * <table cellpadding="4" border="1">
+     * <table border="1">
      * <caption>ConvolveOp kernel</caption>
      * <tr>
      * <td>.0f</td>
