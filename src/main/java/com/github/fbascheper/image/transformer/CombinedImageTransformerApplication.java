@@ -14,7 +14,15 @@ import java.nio.file.Paths;
  * @author Erik-Berndt Scheper
  * @since 05-11-2018
  */
-public class ImageTransformApplication {
+public class CombinedImageTransformerApplication {
+
+    private static final Integer RESIZE_TARGET_WIDTH = 1024;
+    private static final Integer RESIZE_TARGET_HEIGHT = -1;
+
+    private static final Integer CROP_LEFT = 165;
+    private static final Integer CROP_RIGHT = 200;
+    private static final Integer CROP_TOP = 50;
+    private static final Integer CROP_BOTTOM = 50;
 
     /**
      * Main program to traverse a directory and transform all images inside it.
@@ -37,7 +45,8 @@ public class ImageTransformApplication {
         checkDirectory(sourceDirectory);
         checkDirectory(destDirectory);
 
-        CombinedImageTransformer imageTransformer = new CombinedImageTransformer();
+        CombinedImageTransformer imageTransformer = new CombinedImageTransformer(RESIZE_TARGET_WIDTH, RESIZE_TARGET_HEIGHT,
+                CROP_LEFT, CROP_RIGHT, CROP_TOP, CROP_BOTTOM);
 
         Path sourcePath = Paths.get(sourceDirectory);
         Path destPath = Paths.get(destDirectory);

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class GrayScaleTransformer implements ImageTransformer {
 
-    public static final GrayScaleTransformer INSTANCE = new GrayScaleTransformer();
+    static final GrayScaleTransformer INSTANCE = new GrayScaleTransformer();
 
     @Override
     public BufferedImage transform(BufferedImage source) {

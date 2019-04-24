@@ -12,11 +12,10 @@ import java.awt.image.BufferedImage;
  */
 public class ImageSizeTransformer implements ImageTransformer {
 
-    public static final ImageSizeTransformer DEFAULT = new ImageSizeTransformer(1024);
-
     private final int targetWidth;
     private final Integer targetHeight;
 
+    @SuppressWarnings("WeakerAccess")
     public ImageSizeTransformer(int targetWidth) {
         if (targetWidth == 0) {
             throw new IllegalArgumentException("Target width should not be zero");
@@ -26,15 +25,18 @@ public class ImageSizeTransformer implements ImageTransformer {
         this.targetHeight = null;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public ImageSizeTransformer(int targetWidth, int targetHeight) {
-        if (targetWidth == 0) {
-            throw new IllegalArgumentException("Target width should not be zero");
-        }
-        if (targetHeight == 0) {
-            throw new IllegalArgumentException("Target height should not be zero");
+        if (targetWidth <= 0) {
+            throw new IllegalArgumentException("Target width should be greater than zero");
         }
         this.targetWidth = targetWidth;
-        this.targetHeight = targetHeight;
+
+        if (targetHeight <= 0) {
+            this.targetHeight = null;
+        } else {
+            this.targetHeight = targetHeight;
+        }
     }
 
     @Override

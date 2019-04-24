@@ -12,8 +12,6 @@ import java.awt.image.BufferedImage;
  */
 public class ImageCropTransformer implements ImageTransformer {
 
-    public static final ImageCropTransformer DEFAULT = new ImageCropTransformer(165, 200, 50, 50);
-
     private final int cropLeft;
     private final int cropRight;
     private final int cropTop;
@@ -27,6 +25,7 @@ public class ImageCropTransformer implements ImageTransformer {
      * @param cropTop    pixels to crop from top
      * @param cropBottom pixels to crop from bottom
      */
+    @SuppressWarnings("WeakerAccess")
     public ImageCropTransformer(int cropLeft, int cropRight, int cropTop, int cropBottom) {
         this.cropLeft = cropLeft >= 0 ? cropLeft : 0;
         this.cropRight = cropRight >= 0 ? cropRight : 0;
