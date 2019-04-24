@@ -5,7 +5,7 @@
     <groupId>com.github.fbascheper</groupId>
     <artifactId>kafka-connect-storage-converters</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>kafka-connect-storage-converters</name>
     <url>https://github.com/fbascheper/kafka-connect-storage-converters</url>
     <description>
@@ -24,7 +24,7 @@
         <url>https://github.com/fbascheper/kafka-connect-storage-converters</url>
         <developerConnection>scm:git:https://github.com/fbascheper/kafka-connect-storage-converters.git
         </developerConnection>
-        <tag>kafka-connect-storage-converters-0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
