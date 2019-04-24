@@ -76,12 +76,12 @@ public class ImageGrayScaleConverter implements Converter, HeaderConverter {
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
         if (!isKey) {
-            Integer resizeTargetWidth = (Integer) configs.get(CONFIG_NAME_RESIZE_TARGET_WIDTH);
-            Integer resizeTargetHeight = (Integer) configs.get(CONFIG_NAME_RESIZE_TARGET_HEIGHT);
-            Integer cropLeft = (Integer) configs.get(CONFIG_NAME_CROP_LEFT);
-            Integer cropRight = (Integer) configs.get(CONFIG_NAME_CROP_RIGHT);
-            Integer cropTop = (Integer) configs.get(CONFIG_NAME_CROP_TOP);
-            Integer cropBottom = (Integer) configs.get(CONFIG_NAME_CROP_BOTTOM);
+            Integer resizeTargetWidth = Integer.parseInt((String) configs.get(CONFIG_NAME_RESIZE_TARGET_WIDTH));
+            Integer resizeTargetHeight = Integer.parseInt((String) configs.get(CONFIG_NAME_RESIZE_TARGET_HEIGHT));
+            Integer cropLeft = Integer.parseInt((String) configs.get(CONFIG_NAME_CROP_LEFT));
+            Integer cropRight = Integer.parseInt((String) configs.get(CONFIG_NAME_CROP_RIGHT));
+            Integer cropTop = Integer.parseInt((String) configs.get(CONFIG_NAME_CROP_TOP));
+            Integer cropBottom = Integer.parseInt((String) configs.get(CONFIG_NAME_CROP_BOTTOM));
 
             this.imageTransformer = new CombinedImageTransformer(resizeTargetWidth, resizeTargetHeight, cropLeft, cropRight, cropTop, cropBottom);
         }
