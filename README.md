@@ -9,10 +9,8 @@
 ***
 
 ### Contents
-This repository contains two storage converters for Kafka Connect: 
+This repository contains storage converters for Kafka Connect: 
 
-* A no-op converter for byte arrays:
-  `com.github.fbascheper.kafka.connect.converter.bytearray.ByteArrayConverter`
 * A combined grayscale, resize and crop converter for images
   `com.github.fbascheper.kafka.connect.converter.image.ImageGrayScaleConverter`
 
